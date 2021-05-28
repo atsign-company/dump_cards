@@ -43,7 +43,7 @@ Example output:
 
 ### list_project_columns.py
 
-Lists the column IDs and Names from a given project ID
+Lists the column IDs and Names from a given project ID  
 `./list_project_columns.py 21345589`
 
 Example output:  
