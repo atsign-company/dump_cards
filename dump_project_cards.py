@@ -12,14 +12,13 @@ baseurl = 'https://api.github.com'
 headers = {"Content-Type": "application/json", "Accept": "application/vnd.github.inertia-preview+json"}
 
 if len(sys.argv) != 2:
-    #print("   Usage: " + sys.argv[0] + " myproject-id myproj-cards.yaml org_name")
+    #print("   Usage: " + sys.argv[0] + " myproject-id org_name")
     print("   Usage: " + sys.argv[0] + " myproject-id")
     sys.exit(1)
 
 project_id = sys.argv[1]
-#cards_file = sys.argv[2]
 cards_file = project_id + ".csv"
-#org = sys.argv[3]
+#org = sys.argv[2]
 org = "atsign-foundation"
 token = os.environ['GITHUB_API_TOKEN']
 

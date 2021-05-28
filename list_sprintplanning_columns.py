@@ -11,12 +11,8 @@ COLRESET="\033[m"
 baseurl = 'https://api.github.com'
 headers = {"Content-Type": "application/json", "Accept": "application/vnd.github.inertia-preview+json"}
 
-if len(sys.argv) != 3:
-    print("   Usage: " + sys.argv[0] + " my-project-id org_name")
-    sys.exit(1)
-
-project_id = sys.argv[1]
-org = sys.argv[2]
+project_id = "6018453"
+org = "atsign-foundation"
 token = os.environ['GITHUB_API_TOKEN']
 
 def list_project_columns():
