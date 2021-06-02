@@ -29,6 +29,6 @@ def list_projects():
     json_projects = json.loads(response.text)
     #print(json.dumps(json_projects, indent=4, sort_keys=True))
     for project in json_projects:
-        print(f'{project["id"]} {project["number"]} {project["body"]}')
+        print(f'{project["id"]} {project["number"]} {project["name"]}')
         
 list_projects()
