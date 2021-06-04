@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # Python script to list the columns in a given project ID
 
 import os, sys, json, requests, yaml

@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # Python script to list the projects in an organization
 
 import os, sys, json, requests, yaml

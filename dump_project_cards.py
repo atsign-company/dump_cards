@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # Python script to dump card issue details from a given project column
 
 import os, sys, json, requests, yaml
