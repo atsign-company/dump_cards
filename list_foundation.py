@@ -11,11 +11,8 @@ COLRESET="\033[m"
 baseurl = 'https://api.github.com'
 headers = {"Content-Type": "application/json", "Accept": "application/vnd.github.inertia-preview+json"}
 
-if len(sys.argv) != 2:
-    print("   Usage: " + sys.argv[0] + " org_name")
-    sys.exit(1)
-
-org = sys.argv[1]
+#org = sys.argv[1]
+org = "atsign-foundation"
 token = os.environ['GITHUB_API_TOKEN']
 
 def list_projects():

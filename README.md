@@ -30,9 +30,8 @@ lines).
 
 ### list_projects.py
 
-Lists the project IDs, numbers and title for projects in a given (presently
-hard coded) organization.
-`./list_projects.py`
+Lists the project IDs, numbers and title for projects in a given organization.
+`./list_projects.py my-organisation`
 
 Example output:  
 ```
@@ -54,16 +53,6 @@ Example output:
 13742763 Spike - POC
 ```
 
-### list_atsigndev_columns.py
-Lists the column IDs and Names from the atsign-foundation atsign.dev
-project.  
-`./list_atsigndev_columns.py`
-
-### list_sprintplanning_columns.py
-Lists the column IDs and Names from the atsign-foundation sprint planning
-project.  
-`./list_sprintplanning_columns.py`
-
 ### dump_project_cards.py
 
 Dump the issue number and title from the cards in a given column:  
@@ -79,3 +68,26 @@ Issue Key,Summary,Description,Acceptance Criteria,Story Points
 46,Open Source Policies & Process,,,
 45,Update Nomenclature on Pub.dev and other pages,,,
 ```
+
+## Hard coded scripts
+
+A number of the scripts are hard coded to atsign-company and atsign-foundation:
+
+### list_company.py
+
+Lists the projects by ID in atsign-company org.
+
+### list_foundation.py
+
+Lists the projects by ID in atsign-compafoundationny org.
+
+### list_atsigndev_columns.py
+Lists the column IDs and Names from the atsign-foundation atsign.dev
+project.  
+`./list_atsigndev_columns.py`
+
+### list_sprintplanning_columns.py
+Lists the column IDs and Names from the atsign-foundation sprint planning
+project.  
+`./list_sprintplanning_columns.py`
+
