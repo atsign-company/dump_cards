@@ -5,6 +5,7 @@ import os, sys, json, requests, yaml
 
 # Color constants
 # Reference: https://gist.github.com/chrisopedia/8754917
+COLERR="\033[0;31m"
 COLINFO="\033[0;35m"
 COLRESET="\033[m"
 
@@ -25,7 +26,7 @@ def list_projects():
         auth=(org, token))
     if response.status_code != 200:
         # An error occured
-        print(COLINFO + "Error getting project columns : " + str(response.status_code) + " " + response.text
+        print(COLERR + "Error getting project columns : " + str(response.status_code) + " " + response.text
         + COLRESET)
 
     # Convert repos to YAML

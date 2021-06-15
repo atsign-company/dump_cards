@@ -43,7 +43,7 @@ Example output:
 ### list_project_columns.py
 
 Lists the column IDs and Names from a given project ID  
-`./list_project_columns.py 21345589`
+`./list_project_columns.py 21345589 my-organisation`
 
 Example output:  
 ```
@@ -56,7 +56,7 @@ Example output:
 ### dump_project_cards.py
 
 Dump the issue number and title from the cards in a given column:  
-`./dump_project_cards.py 11235813`
+`./dump_project_cards.py 11235813 my-organisation`
 
 Example file content:
 ```
@@ -91,3 +91,8 @@ Lists the column IDs and Names from the atsign-foundation sprint planning
 project.  
 `./list_sprintplanning_columns.py`
 
+### dump_foundation_cards.py
+
+Dump the issue number and title from the cards in a given column within
+atsign-foundation boards.
+`/dump_foundation_cards.py 11235813`
