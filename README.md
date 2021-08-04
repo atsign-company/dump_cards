@@ -86,10 +86,21 @@ Lists the column IDs and Names from the atsign-foundation atsign.dev
 project.  
 `./list_atsigndev_columns.py`
 
+### list_marketing_columns.py
+Lists the column IDs and Names from the atsign-company marketing
+project.  
+`./list_marketing_columns.py`
+
 ### list_sprintplanning_columns.py
 Lists the column IDs and Names from the atsign-foundation sprint planning
 project.  
 `./list_sprintplanning_columns.py`
+
+### dump_company_cards.py
+
+Dump the issue number and title from the cards in a given column within
+atsign-company boards.
+`/dump_company_cards.py 11235813`
 
 ### dump_foundation_cards.py
 
