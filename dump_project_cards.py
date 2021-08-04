@@ -13,7 +13,7 @@ baseurl = 'https://api.github.com'
 headers = {"Content-Type": "application/json", "Accept": "application/vnd.github.inertia-preview+json"}
 
 if len(sys.argv) != 3:
-    print("   Usage: " + sys.argv[0] + " myproject-id org_name")
+    print("   Usage: " + sys.argv[0] + " my-column-id org_name")
     sys.exit(1)
 
 project_id = sys.argv[1]
