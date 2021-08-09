@@ -24,6 +24,7 @@ token = os.environ['GITHUB_API_TOKEN']
 def list_project_cards():
     # Get list of all repos in an org
     response = requests.get(baseurl + "/projects/columns/" + project_id + "/cards", 
+        params={'per_page' : 100},
         headers=headers, 
         auth=(org, token))
     if response.status_code != 200:
