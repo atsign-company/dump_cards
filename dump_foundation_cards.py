@@ -46,10 +46,12 @@ def list_project_cards():
                     headers=headers, 
                     auth=(org, token))
                 json_issues = [json.loads(issues.text)]
-                #f.write (f'{json.dumps(json_issue, indent=4, sort_keys=True)}\n')
                 for issue in json_issues:
-                    f.write (f'{issue["number"]},')
-                    f.write (f'{issue["title"]},,,\n')
+                    f.write (f'{issue["number"]},{issue["title"]},,,')
+                    for label in issue["labels"]:
+                        if (label["name"][-2:]=="SP"):
+                            f.write (f'{label["name"].partition(" ")[0]}')
+                    f.write ('\n')
             except(KeyError):
                 print(COLINFO + "Card found that hasn't been converted to an issue:",
                     COLRESET + f'{card["note"]}')
