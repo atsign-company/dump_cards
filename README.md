@@ -115,5 +115,5 @@ atsign-foundation boards.
 
 This is used to merge the latest two files (which should be .csv files) so
 that the headers from the second file are stripped out in order to create
-a single file that can be imported to Planning Poker.
+a single file that can be imported to Planning Poker.  
 `./merge.sh`
