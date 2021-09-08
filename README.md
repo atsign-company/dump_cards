@@ -57,12 +57,12 @@ Dump the issue number and title from the cards in a given column:
 Example file content:
 ```
 Issue Key,Summary,Description,Acceptance Criteria,Story Points
-38,Integrate Rocky's design into Docsy WTF site,,,
+38,Integrate Rocky's design into Docsy WTF site,,,1
 43,Home/landing page messaging and content,,,
 40,Docs Page - Left hand menu items and flow,,,
 41,Landing page design for each of main category pages in the top menu,,,
-46,Open Source Policies & Process,,,
-45,Update Nomenclature on Pub.dev and other pages,,,
+46,Open Source Policies & Process,,,5
+45,Update Nomenclature on Pub.dev and other pages,,,3
 ```
 
 ## Hard coded scripts
