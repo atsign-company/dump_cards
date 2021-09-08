@@ -71,11 +71,13 @@ A number of the scripts are hard coded to atsign-company and atsign-foundation:
 
 ### list_company.py
 
-Lists the projects by ID in atsign-company org.
+Lists the projects by ID in atsign-company org.  
+`./list_company.py`
 
 ### list_foundation.py
 
-Lists the projects by ID in atsign-compafoundationny org.
+Lists the projects by ID in atsign-compafoundationny org.  
+`./list_foundation.py`
 
 ### list_atsigndev_columns.py
 Lists the column IDs and Names from the atsign-foundation atsign.dev
@@ -107,7 +109,7 @@ atsign-company boards.
 
 Dump the issue number and title from the cards in a given column within
 atsign-foundation boards.
-`/dump_foundation_cards.py 11235813`
+`./dump_foundation_cards.py 11235813`
 
 ## Shell script
 
