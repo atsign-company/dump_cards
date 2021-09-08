@@ -24,10 +24,6 @@ Our [code of conduct](code_of_conduct.md) is based on
 
 ## Python scripts:
 
-All scripts are presently hard coded to use `atsign-foundation` organization.
-But this can be replaced by passing in a command line argument (see commented
-lines).
-
 ### list_projects.py
 
 Lists the project IDs, numbers and title for projects in a given organization.
@@ -105,10 +101,19 @@ project.
 
 Dump the issue number and title from the cards in a given column within
 atsign-company boards.
-`/dump_company_cards.py 11235813`
+`./dump_company_cards.py 11235813`
 
 ### dump_foundation_cards.py
 
 Dump the issue number and title from the cards in a given column within
 atsign-foundation boards.
 `/dump_foundation_cards.py 11235813`
+
+## Shell script
+
+### merge.sh
+
+This is used to merge the latest two files (which should be .csv files) so
+that the headers from the second file are stripped out in order to create
+a single file that can be imported to Planning Poker.
+`./merge.sh`
