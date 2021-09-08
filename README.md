@@ -86,7 +86,7 @@ Lists the column IDs and Names from the atsign-foundation atsign.dev
 project.  
 `./list_atsigndev_columns.py`
 
-### list_e2e3@hack_columns.py
+### list_e2e3\@hack_columns.py
 Lists the column IDs and Names from the atsign-company E2E3 @Hack
 project.  
 `./list_e2e3@hack_columns.py`
