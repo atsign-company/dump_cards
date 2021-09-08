@@ -12,7 +12,8 @@ into [planningpoker.com](https://www.planningpoker.com/).
 
 ## Contributions:
 
-If you find a bug then please raise an [issue](https://github.com/atsign-company/dump_cards/issues).
+If you find a bug then please raise an
+[issue](https://github.com/atsign-company/dump_cards/issues).
 
 We'd also love to get [pull requests](https://github.com/atsign-company/dump_cards/pulls)
 for improvements.
@@ -26,7 +27,7 @@ Our [code of conduct](code_of_conduct.md) is based on
 
 ### list_projects.py
 
-Lists the project IDs, numbers and title for projects in a given organization.
+Lists the project IDs, numbers and title for projects in a given organization.  
 `./list_projects.py my-organisation`
 
 Example output:  
@@ -51,7 +52,8 @@ Example output:
 
 ### dump_project_cards.py
 
-Dump the issue number and title from the cards in a given column:  
+Dump the issue number, title and story points from the cards in a given
+column:  
 `./dump_project_cards.py 11235813 my-organisation`
 
 Example file content:
@@ -76,7 +78,7 @@ Lists the projects by ID in atsign-company org.
 
 ### list_foundation.py
 
-Lists the projects by ID in atsign-compafoundationny org.  
+Lists the projects by ID in atsign-foundation org.  
 `./list_foundation.py`
 
 ### list_atsigndev_columns.py
