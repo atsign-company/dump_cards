@@ -8,7 +8,8 @@ COLRESET="\033[m"
 
 baseurl = 'https://api.github.com'
 # Use inertia-preview for List project cards API to see archived cards
-headers = {"Content-Type": "application/json", "Accept": "application/vnd.github.inertia-preview+json"}
+headers = {"Content-Type": "application/json", 
+    "Accept": "application/vnd.github.inertia-preview+json"}
 token = os.environ['GITHUB_API_TOKEN']
 
 def list_projects(org):
@@ -18,8 +19,8 @@ def list_projects(org):
         auth=(org, token))
     if response.status_code != 200:
         # An error occured
-        print(COLERR + "Error getting project list : " + str(response.status_code) + " " + response.text
-        + COLRESET)
+        print(COLERR + "Error getting project list : "
+            + str(response.status_code) + " " + response.text + COLRESET)
 
     json_projects = json.loads(response.text)
     for project in json_projects:
@@ -32,8 +33,8 @@ def list_project_columns(project_id, org):
         auth=(org, token))
     if response.status_code != 200:
         # An error occured
-        print(COLERR + "Error getting project columns : " + str(response.status_code) + " " + response.text
-        + COLRESET)
+        print(COLERR + "Error getting project columns : "
+            + str(response.status_code) + " " + response.text + COLRESET)
 
     json_projects = json.loads(response.text)
     for project in json_projects:
@@ -43,7 +44,8 @@ def list_project_cards(column_id, org):
     cards_file = column_id + ".csv"
     # Get list of all cards in a project column
     # NB this doesn't deal with paging, so presently limited to 100 cards
-    response = requests.get(baseurl + "/projects/columns/" + column_id + "/cards", 
+    response = requests.get(baseurl + "/projects/columns/" 
+        + column_id + "/cards", 
         params={'per_page' : 100},
         headers=headers, 
         auth=(org, token))
@@ -73,6 +75,7 @@ def list_project_cards(column_id, org):
                             break
                     f.write ('\n')
             except(KeyError):
-                print(COLINFO + "Card found that hasn't been converted to an issue:",
+                print(COLINFO 
+                    + "Card found that hasn't been converted to an issue:",
                     COLRESET + f'{card["note"]}')
     f.close
