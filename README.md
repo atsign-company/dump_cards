@@ -26,7 +26,7 @@ Our [code of conduct](code_of_conduct.md) is based on
 ## Python scripts (old style projects):
 
 These scripts use the v3 REST API, making use of functions in the
-atdumpcards.py module.
+[atdumpcards.py](atdumpcards.py) module.
 
 ### list_projects.py
 
@@ -83,7 +83,7 @@ Issue Key,Summary,Description,Acceptance Criteria,Story Points
 
 These scripts use the v4 GraphQL API to access projects from Projects (beta)
 aka ProjectsNext aka Memex aka Issues feature, making use of functions in
-the atdumpmemex.py module.
+the [atdumpmemex.py](atdumpmemex.py) module.
 
 ### list_nextprojects.py
 
