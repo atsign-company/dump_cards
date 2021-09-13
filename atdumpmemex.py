@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import os, json, requests, base64
+import base64, json, os, requests
 
 # Color constants
 # Reference: https://gist.github.com/chrisopedia/8754917
@@ -8,15 +8,17 @@ COLINFO="\033[0;35m"
 COLRESET="\033[m"
 
 graphqlurl = 'https://api.github.com/graphql'
-# Use inertia-preview for List project cards API to see archived cards
 token = os.environ['GITHUB_API_TOKEN']
 headers = {"Content-Type": "application/json", 
-    "Accept": "application/vnd.github.jean-grey-preview+json",
+    "Accept": "application/json",
     "Authorization": "Bearer " + token,
     "GraphQL-Features": "projects_next_graphql" }
 
+
+
 def list_memex_projects(org):
-    query = 'query{ organization(login: \\"' + org + '\\") { projectsNext(first: 20) { nodes { id title } } } }'
+    query = ('query{ organization(login: \\"' + org + '\\") '
+        '{ projectsNext(first: 20) { nodes { id title } } } }')
     response = requests.post(graphqlurl, 
         headers=headers, 
         data='{"query": '+'\"' + query + '\"}')
@@ -26,14 +28,19 @@ def list_memex_projects(org):
             + str(response.status_code) + " " + response.text + COLRESET)
 
     json_projects = json.loads(response.text)
-    #print(json.dumps(json_cards, indent=4, sort_keys=True))
-    project_id = base64.b64decode(json_projects["data"]["organization"]["projectsNext"]["nodes"][0]["id"])
-    print(f'{project_id.decode("utf-8")} ' 
-        + f'{json_projects["data"]["organization"]["projectsNext"]["nodes"][0]["title"]}')
+    project_id = base64.b64decode((json_projects["data"]["organization"]
+        ["projectsNext"]["nodes"][0]["id"])).decode("utf-8")
+    project_title = (json_projects["data"]["organization"]
+        ["projectsNext"]["nodes"][0]["title"])
+    print(f'{project_id}  {project_title}')
+
+
 
 def list_memex_columns(project_id):
     b64id = base64.b64encode(project_id.encode("ascii")).decode("utf-8")
-    query = 'query{ node(id: \\"' + b64id + '\\")  { ... on ProjectNext { fields(first: 20) { nodes { id name settings } } } } }'
+    query = ('query{ node(id: \\"' + b64id + '\\")  '
+        '{ ... on ProjectNext { fields(first: 20) '
+        '{ nodes { id name settings } } } } }')
     response = requests.post(graphqlurl, 
         headers=headers, 
         data='{"query": '+'\"' + query + '\"}')
@@ -54,7 +61,11 @@ def list_memex_columns(project_id):
 def list_memex_cards(column_id, project_id):
     cards_file = column_id + ".csv"
     b64id = base64.b64encode(project_id.encode("ascii")).decode("utf-8")
-    query = 'query{ node(id: \\"' + b64id + '\\") { ... on ProjectNext { items(first: 100) { nodes{ title fieldValues(first: 8) { nodes{ value } } content{ ...on Issue { number labels(first: 50) { nodes{ name } } } } } } } } }'
+    query = ('query{ node(id: \\"' + b64id + '\\") '
+        '{ ... on ProjectNext { items(first: 100) '
+        '{ nodes{ title fieldValues(first: 8) { nodes{ value } } '
+        'content{ ...on Issue { number labels(first: 50) '
+        '{ nodes{ name } } } } } } } } }')
     response = requests.post(graphqlurl, 
         headers=headers, 
         data='{"query": '+'\"' + query + '\"}')

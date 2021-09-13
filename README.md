@@ -62,6 +62,11 @@ Dump the issue number, title and story points from the cards in a given
 column:  
 `./dump_project_cards.py my-column-id my-organisation`
 
+Example usage:
+```
+$ ./dump_project_cards.py 11235813 atsign-foundation
+```
+
 Example file content:
 ```
 $cat 11235813.csv
@@ -128,7 +133,6 @@ Issue Key,Summary,Description,Acceptance Criteria,Story Points
 23,Mentors for the various tracks,,,2
 28,Judging Panel for the tracks,,,1
 ```
-
 
 ## Hard coded scripts
 
