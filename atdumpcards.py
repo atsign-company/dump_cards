@@ -51,7 +51,7 @@ def list_project_cards(column_id, org):
         auth=(org, token))
     if response.status_code != 200:
         # An error occured
-        print(COLERR + "Error getting project column cards : ",
+        print(COLERR + "Error getting project column cards : "
             + str(response.status_code) + " " + response.text + COLRESET)
 
     json_cards = json.loads(response.text)
