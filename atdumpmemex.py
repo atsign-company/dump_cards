@@ -28,11 +28,9 @@ def list_memex_projects(org):
             + str(response.status_code) + " " + response.text + COLRESET)
 
     json_projects = json.loads(response.text)
-    project_id = base64.b64decode((json_projects["data"]["organization"]
-        ["projectsNext"]["nodes"][0]["id"])).decode("utf-8")
-    project_title = (json_projects["data"]["organization"]
-        ["projectsNext"]["nodes"][0]["title"])
-    print(f'{project_id}  {project_title}')
+    for node in json_projects["data"]["organization"]["projectsNext"]["nodes"]:
+        project_id = base64.b64decode(node["id"]).decode("utf-8")
+        print(f'{project_id}  {node["title"]}')
 
 
 
