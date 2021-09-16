@@ -24,8 +24,8 @@ org = inquirer.select(message="Which org?",
 # Get regular projects from API
 json_projects = list_projects(org)
 for project in json_projects:
-    pchoice.append('* '+str(project["id"])+' '+str(project["number"])+' '
-        +project["name"])
+    pchoice.append(str(project["number"])+' '+str(project["id"])
+        +' '+project["name"])
 #Get beta projects from API
 json_bprojects = list_memex_projects(org)
 for node in json_bprojects["data"]["organization"]["projectsNext"]["nodes"]:
