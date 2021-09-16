@@ -10,4 +10,6 @@ if len(sys.argv) != 2:
 
 org = sys.argv[1]
         
-list_projects(org)
+json_projects = list_projects(org)
+for project in json_projects:
+    print(f'{project["id"]} {project["number"]} {project["name"]}')

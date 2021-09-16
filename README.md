@@ -46,6 +46,24 @@ and then source the script into your shell:
 . ~/.api_keys.sh
 ```
 
+## Interactive script
+
+First install [InquirerPy](https://pypi.org/project/inquirerpy/):
+
+```
+pip3 install InquirerPy
+```
+
+Then run:
+
+```
+./interactive.py
+```
+
+The menus will then prompt for selection of org, project type, and column
+before exporting the column to .csv
+
+
 ## Python scripts (old style projects):
 
 These scripts use the v3 REST API, making use of functions in the

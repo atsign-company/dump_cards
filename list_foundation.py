@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 # Python script to list the projects in an organization
 
-import sys
 from atdumpcards import list_projects
 
 org = "atsign-foundation"
         
-list_projects(org)
+json_projects = list_projects(org)
+for project in json_projects:
+    print(f'{project["id"]} {project["number"]} {project["name"]}')

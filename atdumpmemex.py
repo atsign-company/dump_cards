@@ -28,9 +28,7 @@ def list_memex_projects(org):
             + str(response.status_code) + " " + response.text + COLRESET)
 
     json_projects = json.loads(response.text)
-    for node in json_projects["data"]["organization"]["projectsNext"]["nodes"]:
-        project_id = base64.b64decode(node["id"]).decode("utf-8")
-        print(f'{project_id}  {node["title"]}')
+    return json_projects
 
 
 
@@ -47,12 +45,14 @@ def list_memex_columns(project_id):
         print(COLERR + "Error getting project columns : "
             + str(response.status_code) + " " + response.text + COLRESET)
     
+    columns = []
     json_nodes = json.loads(response.text)
     for node in json_nodes["data"]["node"]["fields"]["nodes"]:
         if node["name"] == "Status":
             json_status = json.loads(node["settings"])
             for options in json_status["options"]:
-                print(f'{options["id"]} {options["name"]}')
+                columns.append(str(options["id"])+' '+options["name"])
+    return columns
             
 
 

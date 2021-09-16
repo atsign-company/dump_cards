@@ -11,4 +11,6 @@ if len(sys.argv) != 3:
 project_id = sys.argv[1]
 org = sys.argv[2]
         
-list_project_columns(project_id, org)
+json_columns = list_project_columns(project_id, org)
+for column in json_columns:
+        print(f'{column["id"]} {column["name"]}')

@@ -10,4 +10,6 @@ if len(sys.argv) != 2:
 
 project_id = sys.argv[1]
         
-list_memex_columns(project_id)
+json_columns = list_memex_columns(project_id)
+for column in json_columns:
+    print(column)

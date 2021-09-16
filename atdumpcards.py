@@ -23,8 +23,8 @@ def list_projects(org):
             + str(response.status_code) + " " + response.text + COLRESET)
 
     json_projects = json.loads(response.text)
-    for project in json_projects:
-        print(f'{project["id"]} {project["number"]} {project["name"]}')
+    return json_projects
+    
 
 def list_project_columns(project_id, org):
     # Get list of all columns for a project
@@ -36,9 +36,9 @@ def list_project_columns(project_id, org):
         print(COLERR + "Error getting project columns : "
             + str(response.status_code) + " " + response.text + COLRESET)
 
-    json_projects = json.loads(response.text)
-    for project in json_projects:
-        print(f'{project["id"]} {project["name"]}')
+    json_columns = json.loads(response.text)
+    return json_columns
+    
 
 def list_project_cards(column_id, org):
     cards_file = column_id + ".csv"
