@@ -8,15 +8,27 @@ COLRESET="\033[m"
 
 baseurl = 'https://api.github.com'
 # Use inertia-preview for List project cards API to see archived cards
-headers = {"Content-Type": "application/json", 
-    "Accept": "application/vnd.github.inertia-preview+json"}
 token = os.environ['GITHUB_API_TOKEN']
+headers = {"Content-Type": "application/json", 
+    "Accept": "application/vnd.github.inertia-preview+json",
+    "Authorization": "Bearer " + token}
+
+def list_orgs():
+    # Get a list of orgs for the authenticated user (from token)
+    response = requests.get(baseurl + "/user/memberships/orgs", 
+        headers=headers)
+    if response.status_code != 200:
+        # An error occured
+        print(COLERR + "Error getting project list : "
+            + str(response.status_code) + " " + response.text + COLRESET)
+
+    json_orgs = json.loads(response.text)
+    return json_orgs
 
 def list_projects(org):
     # Get list of all projects in an org
     response = requests.get(baseurl + "/orgs/" + org + "/projects", 
-        headers=headers, 
-        auth=(org, token))
+        headers=headers)
     if response.status_code != 200:
         # An error occured
         print(COLERR + "Error getting project list : "
@@ -26,11 +38,10 @@ def list_projects(org):
     return json_projects
     
 
-def list_project_columns(project_id, org):
+def list_project_columns(project_id):
     # Get list of all columns for a project
     response = requests.get(baseurl + "/projects/" + project_id + "/columns", 
-        headers=headers, 
-        auth=(org, token))
+        headers=headers)
     if response.status_code != 200:
         # An error occured
         print(COLERR + "Error getting project columns : "
@@ -47,8 +58,7 @@ def list_project_cards(column_id, org):
     response = requests.get(baseurl + "/projects/columns/" 
         + column_id + "/cards", 
         params={'per_page' : 100},
-        headers=headers, 
-        auth=(org, token))
+        headers=headers)
     if response.status_code != 200:
         # An error occured
         print(COLERR + "Error getting project column cards : "

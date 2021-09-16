@@ -3,14 +3,23 @@
 import sys
 from InquirerPy import inquirer
 from atdumpmemex import *
-from atdumpcards import *
+from atdumpcards import * 
 
-org = inquirer.select(message="Which org?",
-    choices=["atsign-company","atsign-foundation"]).execute()
-ptype = inquirer.select(message="Normal or beta?",
-    choices=["normal","beta"]).execute()
+# create empty lists for later appends
 pchoice = []
 cchoice = []
+orglist = []
+
+for orgs in list_orgs():
+    orglist.append(orgs["organization"]["login"])
+if not orglist:
+    print("User isn't a member of any orgs")
+    sys.exit()
+
+org = inquirer.select(message="Which org?",
+    choices=orglist).execute()
+ptype = inquirer.select(message="Normal or beta?",
+    choices=["normal","beta"]).execute()
 
 if ptype == "beta":
     json_projects = list_memex_projects(org)
@@ -40,7 +49,7 @@ else:
         sys.exit()
     project_id = inquirer.select(message="Which project?",
        choices=pchoice).execute()
-    json_columns = list_project_columns(project_id.partition(" ")[0], org)
+    json_columns = list_project_columns(project_id.partition(" ")[0])
     for column in json_columns:
         cchoice.append(str(column["id"])+' '+column["name"])
     if not cchoice:
