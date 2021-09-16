@@ -9,6 +9,5 @@ if len(sys.argv) != 2:
     sys.exit(1)
 
 column_id = sys.argv[1]
-org = "atsign-company"
 
-list_project_cards(column_id, org)
+list_project_cards(column_id)

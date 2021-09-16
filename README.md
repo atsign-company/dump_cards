@@ -84,11 +84,11 @@ $ ./list_projects.py atsign-foundation
 ### list_project_columns.py
 
 Lists the column IDs and Names from a given project ID  
-`./list_project_columns.py my-project-id my-organisation`
+`./list_project_columns.py my-project-id`
 
 Example output:  
 ```
-./list_project_columns.py 6018453 atsign-foundation
+./list_project_columns.py 6018453
 11918750 Backlog
 12092381 Bugs
 14337222 PR12 - 107 SP's (Capacity 105)
@@ -99,11 +99,11 @@ Example output:
 
 Dump the issue number, title and story points from the cards in a given
 column:  
-`./dump_project_cards.py my-column-id my-organisation`
+`./dump_project_cards.py my-column-id`
 
 Example usage:
 ```
-$ ./dump_project_cards.py 11235813 atsign-foundation
+$ ./dump_project_cards.py 11235813
 ```
 
 Example file content:

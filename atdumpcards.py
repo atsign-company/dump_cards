@@ -51,7 +51,7 @@ def list_project_columns(project_id):
     return json_columns
     
 
-def list_project_cards(column_id, org):
+def list_project_cards(column_id):
     cards_file = column_id + ".csv"
     # Get list of all cards in a project column
     # NB this doesn't deal with paging, so presently limited to 100 cards
@@ -72,8 +72,7 @@ def list_project_cards(column_id, org):
         if not(card["archived"]):
             try:
                 issues = requests.get(card["content_url"], 
-                    headers=headers, 
-                    auth=(org, token))
+                    headers=headers)
                 json_issues = [json.loads(issues.text)]
                 for issue in json_issues:
                     f.write (f'{issue["number"]},{issue["title"]},,,')
