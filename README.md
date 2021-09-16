@@ -6,9 +6,7 @@
 Repo to dump cards from a project column into a CSV file that can be imported
 into [planningpoker.com](https://www.planningpoker.com/).
 
-## LICENSE:
-
-[Apache License Version 2.0](https://www.apache.org/licenses/LICENSE-2.0) 
+[![GitHub License](https://img.shields.io/badge/license-Apache2-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0) 
 
 ## Contributions:
 
