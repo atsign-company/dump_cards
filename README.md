@@ -61,6 +61,7 @@ Then run:
 The menus will then prompt for selection of org, project type, and column
 before exporting the column to .csv
 
+[![asciicast](https://asciinema.org/a/8k7PmaAKefRU2XFiBbnyBphml.svg)](https://asciinema.org/a/8k7PmaAKefRU2XFiBbnyBphml?t=8)
 
 ## Python scripts (old style projects):
 
