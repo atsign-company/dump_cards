@@ -5,57 +5,58 @@ from InquirerPy import inquirer
 from atdumpmemex import *
 from atdumpcards import * 
 
-# create empty lists for later appends
+# Create empty lists for later appends
+orglist = []
 pchoice = []
 cchoice = []
-orglist = []
 
+# Get org list from API
 for orgs in list_orgs():
     orglist.append(orgs["organization"]["login"])
 if not orglist:
     print("User isn't a member of any orgs")
     sys.exit()
 
+# User selects org from list
 org = inquirer.select(message="Which org?",
     choices=orglist).execute()
-ptype = inquirer.select(message="Normal or beta?",
-    choices=["normal","beta"]).execute()
 
-if ptype == "beta":
-    json_projects = list_memex_projects(org)
-    for node in json_projects["data"]["organization"]["projectsNext"]["nodes"]:
-        project_id = base64.b64decode(node["id"]).decode("utf-8")
-        pchoice.append(project_id+' '+node["title"])
-    if not pchoice:
-        print("No projects found")
-        sys.exit()
-    project_id = inquirer.select(message="Which project?",
-       choices=pchoice).execute()
-    json_columns = list_memex_columns(project_id.partition(" ")[0])
+# Get regular projects from API
+json_projects = list_projects(org)
+for project in json_projects:
+    pchoice.append('* '+str(project["id"])+' '+str(project["number"])+' '
+        +project["name"])
+#Get beta projects from API
+json_bprojects = list_memex_projects(org)
+for node in json_bprojects["data"]["organization"]["projectsNext"]["nodes"]:
+    proj_id = base64.b64decode(node["id"]).decode("utf-8")
+    pchoice.append('b '+proj_id+' '+node["title"])
+if not pchoice:
+    print("No projects found")
+    sys.exit()
+# User selects project from list
+pselect = inquirer.select(message="Which project?",
+    choices=pchoice).execute()
+project_id = pselect.partition(" ")[2].partition(" ")[0]
+# Beta projects
+if pselect.partition(" ")[0] == 'b':
+    json_columns = list_memex_columns(project_id)
     if not json_columns:
         print("No columns found")
         sys.exit()
     column_id = inquirer.select(message="Which column?",
-       choices=json_columns).execute()
-    list_memex_cards(column_id.partition(" ")[0],project_id.partition(" ")[0])
-    print("Exported: "+column_id.partition(" ")[0]+".csv")
+       choices=json_columns).execute().partition(" ")[0]
+    list_memex_cards(column_id,project_id)
+    print("Exported: "+column_id+".csv")
 else:
-    json_projects = list_projects(org)
-    for project in json_projects:
-        pchoice.append(str(project["id"])+' '+str(project["number"])+' '
-            +project["name"])
-    if not pchoice:
-        print("No projects found")
-        sys.exit()
-    project_id = inquirer.select(message="Which project?",
-       choices=pchoice).execute()
-    json_columns = list_project_columns(project_id.partition(" ")[0])
+# Regular projects
+    json_columns = list_project_columns(project_id)
     for column in json_columns:
         cchoice.append(str(column["id"])+' '+column["name"])
     if not cchoice:
         print("No columns found")
         sys.exit()
     column_id = inquirer.select(message="Which column?",
-       choices=cchoice).execute()
-    list_project_cards(column_id.partition(" ")[0], org)
-    print("Exported: "+column_id.partition(" ")[0]+".csv")
+       choices=cchoice).execute().partition(" ")[0]
+    list_project_cards(column_id)
+    print("Exported: "+column_id+".csv")
