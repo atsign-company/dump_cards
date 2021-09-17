@@ -1,4 +1,4 @@
-import os, json, requests
+import os, json, requests, sys
 
 # Color constants
 # Reference: https://gist.github.com/chrisopedia/8754917
@@ -7,8 +7,12 @@ COLINFO="\033[0;35m"
 COLRESET="\033[m"
 
 baseurl = 'https://api.github.com'
+try:
+    token = os.environ['GITHUB_API_TOKEN']
+except:
+    print("Make sure GITHUB_API_TOKEN env variable is set")
+    sys.exit()
 # Use inertia-preview for List project cards API to see archived cards
-token = os.environ['GITHUB_API_TOKEN']
 headers = {"Content-Type": "application/json", 
     "Accept": "application/vnd.github.inertia-preview+json",
     "Authorization": "Bearer " + token}

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import base64, json, os, requests
+import base64, json, os, requests, sys
 
 # Color constants
 # Reference: https://gist.github.com/chrisopedia/8754917
@@ -8,7 +8,11 @@ COLINFO="\033[0;35m"
 COLRESET="\033[m"
 
 graphqlurl = 'https://api.github.com/graphql'
-token = os.environ['GITHUB_API_TOKEN']
+try:
+    token = os.environ['GITHUB_API_TOKEN']
+except:
+    print("Make sure GITHUB_API_TOKEN env variable is set")
+    sys.exit()
 headers = {"Content-Type": "application/json", 
     "Accept": "application/json",
     "Authorization": "Bearer " + token,
