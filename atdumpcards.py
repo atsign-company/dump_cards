@@ -17,8 +17,16 @@ headers = {"Content-Type": "application/json",
     "Accept": "application/vnd.github.inertia-preview+json",
     "Authorization": "Bearer " + token}
 
+
 def list_orgs():
-    # Get a list of orgs for the authenticated user (from token)
+    """Get a list of orgs for the authenticated user (from token).
+
+    Args:
+        token (str): GitHub API Token
+
+    Returns:
+        dictionary:
+    """
     response = requests.get(baseurl + "/user/memberships/orgs", 
         headers=headers)
     if response.status_code != 200:
@@ -29,8 +37,16 @@ def list_orgs():
     json_orgs = json.loads(response.text)
     return json_orgs
 
+
 def list_projects(org):
-    # Get list of all projects in an org
+    """Get list of all projects in an org.
+
+    Args:
+        org (str): GitHub Organization
+
+    Returns:
+        dictionary:
+    """
     response = requests.get(baseurl + "/orgs/" + org + "/projects", 
         headers=headers)
     if response.status_code != 200:
@@ -43,7 +59,14 @@ def list_projects(org):
     
 
 def list_project_columns(project_id):
-    # Get list of all columns for a project
+    """Get list of all columns for a project.
+
+    Args:
+        project_id (str): Project ID
+
+    Returns:
+        dictionary:
+    """
     response = requests.get(baseurl + "/projects/" + project_id + "/columns", 
         headers=headers)
     if response.status_code != 200:
@@ -56,9 +79,15 @@ def list_project_columns(project_id):
     
 
 def list_project_cards(column_id):
+    """Export the cards in a Project column to .csv.
+
+    Args:
+        column_id (str): Column ID
+    
+    Note:
+        This doesn't deal with paging, so presently limited to 100 cards
+    """
     cards_file = column_id + ".csv"
-    # Get list of all cards in a project column
-    # NB this doesn't deal with paging, so presently limited to 100 cards
     response = requests.get(baseurl + "/projects/columns/" 
         + column_id + "/cards", 
         params={'per_page' : 100},

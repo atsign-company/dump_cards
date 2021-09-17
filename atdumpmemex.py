@@ -21,6 +21,14 @@ headers = {"Content-Type": "application/json",
 
 
 def list_memex_projects(org):
+    """List the Projects(beta) available in a given org.
+
+    Args:
+        org (str): GitHub Organization
+
+    Returns:
+        dictionary:
+    """
     query = ('query{ organization(login: \\"' + org + '\\") '
         '{ projectsNext(first: 20) { nodes { id title } } } }')
     response = requests.post(graphqlurl, 
@@ -37,6 +45,14 @@ def list_memex_projects(org):
 
 
 def list_memex_columns(project_id):
+    """List the columns in a given Projects(beta).
+
+    Args:
+        project_id (str): Projects(beta) ID
+
+    Returns:
+        dictionary:
+    """
     b64id = base64.b64encode(project_id.encode("ascii")).decode("utf-8")
     query = ('query{ node(id: \\"' + b64id + '\\")  '
         '{ ... on ProjectNext { fields(first: 20) '
@@ -61,6 +77,12 @@ def list_memex_columns(project_id):
 
 
 def list_memex_cards(column_id, project_id):
+    """Export the cards in a Projects(beta) column to .csv.
+
+    Args:
+        column_id (str): Column ID
+        project_id (str): Projects(beta) ID
+    """
     cards_file = column_id + ".csv"
     b64id = base64.b64encode(project_id.encode("ascii")).decode("utf-8")
     query = ('query{ node(id: \\"' + b64id + '\\") '
