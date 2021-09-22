@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import base64, json, os, requests, sys
+import base64, json, os, re, requests, sys
 
 # Color constants
 # Reference: https://gist.github.com/chrisopedia/8754917
@@ -104,7 +104,9 @@ def list_memex_cards(column_id, project_id):
     for card in json_cards["data"]["node"]["items"]["nodes"]:
         for status in card["fieldValues"]["nodes"]:
             if status["value"] == column_id:
-                f.write(f'{card["content"]["number"]},{card["title"]},,,')
+                # Remove special chars and limit length to 80 chars
+                title = re.sub('[^A-Za-z0-9.@ ]+', '', card["title"])[:80]
+                f.write(f'{card["content"]["number"]},{title},,,')
                 for label in card["content"]["labels"]["nodes"]:
                         if (label["name"][-2:]=="SP"):
                             f.write (f'{label["name"].partition(" ")[0]}')
