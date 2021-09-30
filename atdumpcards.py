@@ -109,7 +109,7 @@ def list_project_cards(column_id):
                 json_issues = [json.loads(issues.text)]
                 for issue in json_issues:
                     # Remove special chars and limit length to 80 chars
-                    title = re.sub('[^A-Za-z0-9.@ ]+', '', card["title"])[:80]
+                    title = re.sub('[^A-Za-z0-9.@ ]+', '', issue["title"])[:80]
                     f.write (f'{issue["number"]},{title},,,')
                     # Extract story points if present in labels like `3 SP`
                     for label in issue["labels"]:
