@@ -30,7 +30,7 @@ def list_memex_projects(org):
         dictionary:
     """
     query = ('query{ organization(login: \\"' + org + '\\") '
-        '{ projectsNext(first: 20) { nodes { id title } } } }')
+        '{ projectsNext(first: 20) { nodes { id number title } } } }')
     response = requests.post(graphqlurl, 
         headers=headers, 
         data='{"query": '+'\"' + query + '\"}')
@@ -53,8 +53,8 @@ def list_memex_columns(project_id):
     Returns:
         dictionary:
     """
-    b64id = base64.b64encode(project_id.encode("ascii")).decode("utf-8")
-    query = ('query{ node(id: \\"' + b64id + '\\")  '
+    #b64id = base64.b64encode(project_id.encode("ascii")).decode("utf-8")
+    query = ('query{ node(id: \\"' + project_id + '\\")  '
         '{ ... on ProjectNext { fields(first: 20) '
         '{ nodes { id name settings } } } } }')
     response = requests.post(graphqlurl, 
@@ -84,8 +84,8 @@ def list_memex_cards(column_id, project_id):
         project_id (str): Projects(beta) ID
     """
     cards_file = column_id + ".csv"
-    b64id = base64.b64encode(project_id.encode("ascii")).decode("utf-8")
-    query = ('query{ node(id: \\"' + b64id + '\\") '
+    #b64id = base64.b64encode(project_id.encode("ascii")).decode("utf-8")
+    query = ('query{ node(id: \\"' + project_id + '\\") '
         '{ ... on ProjectNext { items(first: 100) '
         '{ nodes{ title fieldValues(first: 8) { nodes{ value } } '
         'content{ ...on Issue { number labels(first: 50) '

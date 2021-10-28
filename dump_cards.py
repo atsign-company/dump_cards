@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # pip3 install InquirerPy
-import sys
+import base64, sys
 from InquirerPy import inquirer
 from atdumpmemex import *
 from atdumpcards import * 
@@ -29,7 +29,8 @@ for project in json_projects:
 #Get beta projects from API
 json_bprojects = list_memex_projects(org)
 for node in json_bprojects["data"]["organization"]["projectsNext"]["nodes"]:
-    proj_id = base64.b64decode(node["id"]).decode("utf-8")
+    #proj_num = str(node["number"])
+    proj_id = node["id"]
     pchoice.append('b '+proj_id+' '+node["title"])
 if not pchoice:
     print("No projects found")
