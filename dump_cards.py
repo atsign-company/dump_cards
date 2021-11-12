@@ -31,7 +31,8 @@ json_bprojects = list_memex_projects(org)
 for node in json_bprojects["data"]["organization"]["projectsNext"]["nodes"]:
     #proj_num = str(node["number"])
     proj_id = node["id"]
-    pchoice.append('b '+proj_id+' '+node["title"])
+    if not node["closed"]:
+        pchoice.append('b '+proj_id+' '+node["title"])
 if not pchoice:
     print("No projects found")
     sys.exit()

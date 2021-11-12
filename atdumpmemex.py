@@ -30,7 +30,7 @@ def list_memex_projects(org):
         dictionary:
     """
     query = ('query{ organization(login: \\"' + org + '\\") '
-        '{ projectsNext(first: 20) { nodes { id number title } } } }')
+        '{ projectsNext(first: 20) { nodes { id number title closed } } } }')
     response = requests.post(graphqlurl, 
         headers=headers, 
         data='{"query": '+'\"' + query + '\"}')
