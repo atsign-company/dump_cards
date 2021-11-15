@@ -86,8 +86,9 @@ def list_memex_cards(column_id, project_id):
     cards_file = column_id + ".csv"
     #b64id = base64.b64encode(project_id.encode("ascii")).decode("utf-8")
     query = ('query{ node(id: \\"' + project_id + '\\") '
-        '{ ... on ProjectNext { items(first: 100) '
-        '{ nodes{ title fieldValues(first: 8) { nodes{ value } } '
+        '{ ... on ProjectNext { items(first: 100 ) '
+        '{ pageInfo { hasNextPage endCursor}'
+        ' nodes{ title fieldValues(first: 8) { nodes{ value } } '
         'content{ ...on Issue { number labels(first: 50) '
         '{ nodes{ name } } } } } } } } }')
     response = requests.post(graphqlurl, 
@@ -99,6 +100,9 @@ def list_memex_cards(column_id, project_id):
             + str(response.status_code) + " " + response.text + COLRESET)
 
     json_cards = json.loads(response.text)
+    t = open("temp.json", 'w')
+    t.write(response.text)
+    t.close
     f = open(cards_file, 'w')
     f.write("Issue Key,Summary,Description,Acceptance Criteria,Story Points\n")
     for card in json_cards["data"]["node"]["items"]["nodes"]:
@@ -113,4 +117,38 @@ def list_memex_cards(column_id, project_id):
                             # break loop in case there are multiple SP labels
                             break
                 f.write ('\n')
+
+    while json_cards["data"]["node"]["items"]["pageInfo"]["hasNextPage"]:
+        cursor = json_cards["data"]["node"]["items"]["pageInfo"]["endCursor"]
+        query = ('query{ node(id: \\"' + project_id + '\\") '
+            '{ ... on ProjectNext { items(first: 100 after:\\"' + cursor + '\\") '
+            '{ pageInfo { hasNextPage endCursor}'
+            ' nodes{ title fieldValues(first: 8) { nodes{ value } } '
+            'content{ ...on Issue { number labels(first: 50) '
+            '{ nodes{ name } } } } } } } } }')
+        response = requests.post(graphqlurl, 
+            headers=headers, 
+            data='{"query": '+'\"' + query + '\"}')
+        if response.status_code != 200:
+            # An error occured
+            print(COLERR + "Error getting project column cards : "
+                + str(response.status_code) + " " + response.text + COLRESET)
+    
+        json_cards = json.loads(response.text)
+        t = open("1temp.json", 'w')
+        t.write(response.text)
+        t.close
+        for card in json_cards["data"]["node"]["items"]["nodes"]:
+            for status in card["fieldValues"]["nodes"]:
+                if status["value"] == column_id:
+                    # Remove special chars and limit length to 80 chars
+                    title = re.sub('[^A-Za-z0-9.@ ]+', '', card["title"])[:80]
+                    f.write(f'{card["content"]["number"]},{title},,,')
+                    for label in card["content"]["labels"]["nodes"]:
+                            if (label["name"][-2:]=="SP"):
+                                f.write (f'{label["name"].partition(" ")[0]}')
+                                # break loop in case there are multiple SP labels
+                                break
+                    f.write ('\n')
+
     f.close
