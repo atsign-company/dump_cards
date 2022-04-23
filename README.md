@@ -46,10 +46,18 @@ and then source the script into your shell:
 
 ## Interactive script
 
-First install [InquirerPy](https://pypi.org/project/inquirerpy/):
+First install the [InquirerPy](https://pypi.org/project/inquirerpy/)
+and the requests modules:
 
 ```
 pip3 install InquirerPy
+pip3 install requests
+```
+
+Or, by using the `requirements.txt`:
+
+```
+pip3 install -r requirements.txt
 ```
 
 Then run:
