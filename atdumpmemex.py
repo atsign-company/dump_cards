@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
-import base64, json, os, re, sys
+import base64
+import json
+import os
+import re
+import sys
 
-import requests, dotenv
+import requests
+import dotenv
 
 # Color constants
 # Reference: https://gist.github.com/chrisopedia/8754917
