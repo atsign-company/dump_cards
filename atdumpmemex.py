@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-import base64, json, os, re, requests, sys
+import base64, json, os, re, sys
+
+import requests, dotenv
 
 # Color constants
 # Reference: https://gist.github.com/chrisopedia/8754917
@@ -8,12 +10,19 @@ COLINFO="\033[0;35m"
 COLRESET="\033[m"
 
 graphqlurl = 'https://api.github.com/graphql'
+
+DUMP_CARDS_PATH = os.getcwd()
+DOTENV_PATH = f"{DUMP_CARDS_PATH}/.env"
+
+dotenv.load_dotenv(DOTENV_PATH)
+
 try:
     token = os.environ['GITHUB_API_TOKEN']
 except:
     print("Make sure GITHUB_API_TOKEN env variable is set")
     sys.exit()
-headers = {"Content-Type": "application/json", 
+
+headers = {"Content-Type": "application/json",
     "Accept": "application/json",
     "Authorization": "Bearer " + token,
     "GraphQL-Features": "projects_next_graphql" }
@@ -31,8 +40,8 @@ def list_memex_projects(org):
     """
     query = ('query{ organization(login: \\"' + org + '\\") '
         '{ projectsNext(first: 20) { nodes { id number title closed } } } }')
-    response = requests.post(graphqlurl, 
-        headers=headers, 
+    response = requests.post(graphqlurl,
+        headers=headers,
         data='{"query": '+'\"' + query + '\"}')
     if response.status_code != 200:
         # An error occured
@@ -57,14 +66,14 @@ def list_memex_columns(project_id):
     query = ('query{ node(id: \\"' + project_id + '\\")  '
         '{ ... on ProjectNext { fields(first: 20) '
         '{ nodes { id name settings } } } } }')
-    response = requests.post(graphqlurl, 
-        headers=headers, 
+    response = requests.post(graphqlurl,
+        headers=headers,
         data='{"query": '+'\"' + query + '\"}')
     if response.status_code != 200:
         # An error occured
         print(COLERR + "Error getting project columns : "
             + str(response.status_code) + " " + response.text + COLRESET)
-    
+
     columns = []
     json_nodes = json.loads(response.text)
     for node in json_nodes["data"]["node"]["fields"]["nodes"]:
@@ -73,7 +82,7 @@ def list_memex_columns(project_id):
             for options in json_status["options"]:
                 columns.append(str(options["id"])+' '+options["name"])
     return columns
-            
+
 
 
 def list_memex_cards(column_id, project_id):
@@ -96,14 +105,14 @@ def list_memex_cards(column_id, project_id):
             ' nodes{ title fieldValues(first: 8) { nodes{ value } } '
             'content{ ...on Issue { number labels(first: 50) '
             '{ nodes{ name } } } } } } } } }')
-        response = requests.post(graphqlurl, 
-            headers=headers, 
+        response = requests.post(graphqlurl,
+            headers=headers,
             data='{"query": '+'\"' + query + '\"}')
         if response.status_code != 200:
             # An error occured
             print(COLERR + "Error getting project column cards : "
                 + str(response.status_code) + " " + response.text + COLRESET)
-    
+
         json_cards = json.loads(response.text)
         for card in json_cards["data"]["node"]["items"]["nodes"]:
             for status in card["fieldValues"]["nodes"]:

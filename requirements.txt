@@ -1,2 +1,3 @@
-InquirerPy
-requests
+inquirerpy==0.3.3
+python-dotenv==0.20.0
+requests==2.27.1

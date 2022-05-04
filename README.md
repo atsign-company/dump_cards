@@ -2,7 +2,7 @@
 
 ### Now for a little internet optimism
 
-# dump_cards
+# dump\_cards
 Repo to dump cards from a project column into a CSV file that can be imported
 into [planningpoker.com](https://www.planningpoker.com/).
 
@@ -23,34 +23,32 @@ Our [code of conduct](code_of_conduct.md) is based on
 
 ## Security token
 
-These scripts need a security token with access to read:org 
+These scripts need a security token with access to read:org
 
 ![image](https://user-images.githubusercontent.com/478926/133479440-04abd22f-d3c3-4082-90ad-1431898839ce.png)
 
 The token should be in an environment variable `GITHUB_API_TOKEN`
 
-An easy way to do this is first have a file ~/.api_keys.sh containing:
+An easy way to do this is set it in a `.env` file:
 
-```bash
-#!/bin/bash
-# API keys for GitHub etc.
-export GITHUB_API_TOKEN='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' # <- put your token here
-# ^ this token was deleted already so it needs to be replaced
 ```
-
-and then source the script into your shell:
-
-```bash
-. ~/.api_keys.sh
+# ./.env
+# API keys for GitHub etc.
+GITHUB_API_TOKEN=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 # <- put your token here
+# ^ this token was deleted already so it needs to be replaced
 ```
 
 ## Interactive script
 
-First install the [InquirerPy](https://pypi.org/project/inquirerpy/)
-and the requests modules:
+This project uses the
+[InquirerPy](https://pypi.org/project/inquirerpy/),
+[python-dotenv](https://pypi.org/project/python-dotenv/) and
+[requests](https://pypi.org/project/requests/) modules, so you need to
+install them:
 
 ```
 pip3 install InquirerPy
+pip3 install python-dotenv
 pip3 install requests
 ```
 
