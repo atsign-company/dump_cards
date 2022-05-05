@@ -1,4 +1,10 @@
-import os, json, re, requests, sys
+import json
+import os
+import re
+import sys
+
+import requests
+import dotenv
 
 # Color constants
 # Reference: https://gist.github.com/chrisopedia/8754917
@@ -7,13 +13,20 @@ COLINFO="\033[0;35m"
 COLRESET="\033[m"
 
 baseurl = 'https://api.github.com'
+
+DUMP_CARDS_PATH = os.getcwd()
+DOTENV_PATH = f"{DUMP_CARDS_PATH}/.env"
+
+dotenv.load_dotenv(DOTENV_PATH)
+
 try:
     token = os.environ['GITHUB_API_TOKEN']
 except:
     print("Make sure GITHUB_API_TOKEN env variable is set")
     sys.exit()
+
 # Use inertia-preview for List project cards API to see archived cards
-headers = {"Content-Type": "application/json", 
+headers = {"Content-Type": "application/json",
     "Accept": "application/vnd.github.inertia-preview+json",
     "Authorization": "Bearer " + token}
 
@@ -27,7 +40,7 @@ def list_orgs():
     Returns:
         dictionary:
     """
-    response = requests.get(baseurl + "/user/memberships/orgs", 
+    response = requests.get(baseurl + "/user/memberships/orgs",
         headers=headers)
     if response.status_code != 200:
         # An error occured
@@ -47,7 +60,7 @@ def list_projects(org):
     Returns:
         dictionary:
     """
-    response = requests.get(baseurl + "/orgs/" + org + "/projects", 
+    response = requests.get(baseurl + "/orgs/" + org + "/projects",
         headers=headers)
     if response.status_code != 200:
         # An error occured
@@ -56,7 +69,7 @@ def list_projects(org):
 
     json_projects = json.loads(response.text)
     return json_projects
-    
+
 
 def list_project_columns(project_id):
     """Get list of all columns for a project.
@@ -67,7 +80,7 @@ def list_project_columns(project_id):
     Returns:
         dictionary:
     """
-    response = requests.get(baseurl + "/projects/" + project_id + "/columns", 
+    response = requests.get(baseurl + "/projects/" + project_id + "/columns",
         headers=headers)
     if response.status_code != 200:
         # An error occured
@@ -76,20 +89,20 @@ def list_project_columns(project_id):
 
     json_columns = json.loads(response.text)
     return json_columns
-    
+
 
 def list_project_cards(column_id):
     """Export the cards in a Project column to .csv.
 
     Args:
         column_id (str): Column ID
-    
+
     Note:
         This doesn't deal with paging, so presently limited to 100 cards
     """
     cards_file = column_id + ".csv"
-    response = requests.get(baseurl + "/projects/columns/" 
-        + column_id + "/cards", 
+    response = requests.get(baseurl + "/projects/columns/"
+        + column_id + "/cards",
         params={'per_page' : 100},
         headers=headers)
     if response.status_code != 200:
@@ -104,7 +117,7 @@ def list_project_cards(column_id):
     for card in json_cards:
         if not(card["archived"]):
             try:
-                issues = requests.get(card["content_url"], 
+                issues = requests.get(card["content_url"],
                     headers=headers)
                 json_issues = [json.loads(issues.text)]
                 for issue in json_issues:
@@ -119,7 +132,7 @@ def list_project_cards(column_id):
                             break
                     f.write ('\n')
             except(KeyError):
-                print(COLINFO 
+                print(COLINFO
                     + "Card found that hasn't been converted to an issue:",
                     COLRESET + f'{card["note"]}')
     f.close
