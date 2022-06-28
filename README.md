@@ -1,4 +1,4 @@
-<img width=250px src="https://atsign.dev/assets/img/@platform_logo_grey.svg?sanitize=true">
+<img width=250px src="https://atsign.dev/assets/img/atPlatform_logo_gray.svg?sanitize=true">
 
 # dump\_cards
 Repo to dump cards from a project column into a CSV file that can be imported
