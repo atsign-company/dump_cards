@@ -71,7 +71,7 @@ The menus will then prompt for selection of org, project type, and column
 before exporting the column to .csv.  
 *V2 Projects will additionally ask which field to pick the column from.
 
-[![asciicast](https://asciinema.org/a/zWE8AisDzacCKqlGpdu7dwPqO.svg)](https://asciinema.org/a/zWE8AisDzacCKqlGpdu7dwPqO)
+[![asciicast](https://asciinema.org/a/KG4qlBbQZfiR7N8cQRw4APyIU.svg)](https://asciinema.org/a/KG4qlBbQZfiR7N8cQRw4APyIU)
 
 ## Shell script
 
