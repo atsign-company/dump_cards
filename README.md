@@ -19,10 +19,6 @@ Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 Our [code of conduct](code_of_conduct.md) is based on
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.0-4baaaa.svg)](code_of_conduct.md)
 
-## Scripts
-
-
-
 ## Security token
 
 These scripts need a security token with access to read:project.
