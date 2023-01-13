@@ -21,9 +21,14 @@ Our [code of conduct](code_of_conduct.md) is based on
 
 ## Security token
 
-These scripts need a security token with access to read:org
+These scripts need a security token with access to read:project.
 
-![image](https://user-images.githubusercontent.com/478926/133479440-04abd22f-d3c3-4082-90ad-1431898839ce.png)
+![image](https://user-images.githubusercontent.com/33691921/212190123-ea5702ca-3c21-4a5c-a5a4-97adf468434e.png)
+
+If your project contains issues or pull requests in a private repo, you will also need to provide access to repo.
+
+![image](https://user-images.githubusercontent.com/33691921/212190998-dd0ed182-88e2-4a4d-9861-c9c1cc1d817b.png)
+
 
 The token should be in an environment variable `GITHUB_API_TOKEN`
 
@@ -36,7 +41,7 @@ GITHUB_API_TOKEN=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 # <- put your token he
 # ^ this token was deleted already so it needs to be replaced
 ```
 
-## Interactive script
+## Interactive scripts
 
 This project uses the
 [InquirerPy](https://pypi.org/project/inquirerpy/),
@@ -63,9 +68,10 @@ Then run:
 ```
 
 The menus will then prompt for selection of org, project type, and column
-before exporting the column to .csv
+before exporting the column to .csv.  
+*V2 Projects will additionally ask which field to pick the column from.
 
-[![asciicast](https://asciinema.org/a/zWE8AisDzacCKqlGpdu7dwPqO.svg)](https://asciinema.org/a/zWE8AisDzacCKqlGpdu7dwPqO)
+[![asciicast](https://asciinema.org/a/KG4qlBbQZfiR7N8cQRw4APyIU.svg)](https://asciinema.org/a/KG4qlBbQZfiR7N8cQRw4APyIU)
 
 ## Shell script
 
