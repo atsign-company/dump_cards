@@ -166,6 +166,7 @@ def list_v2_cards(field_id, project_id, column_name, file_name=None):
                         break
                 if (fieldValue.get('field') != None and (fieldValue['field']['name'].lower() == "sp" or fieldValue['field']['name'].lower() == "sprint points")):
                     sp = fieldValue.get('number')
+                    sp = '' if sp == None else int(sp)
             if(correctColumn):
                 if card.get("content") == None:
                     title = "ERROR READING PRIVATE ISSUE"
@@ -181,4 +182,4 @@ def list_v2_cards(field_id, project_id, column_name, file_name=None):
         getPage = json_cards["data"]["node"]["items"]["pageInfo"]["hasNextPage"]
         cursor = 'after:\\"' + \
             json_cards["data"]["node"]["items"]["pageInfo"]["endCursor"] + '\\"'
-    f.close
+    f.close()

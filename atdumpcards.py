@@ -135,4 +135,4 @@ def list_project_cards(column_id):
                 print(COLINFO
                     + "Card found that hasn't been converted to an issue:",
                     COLRESET + f'{card["note"]}')
-    f.close
+    f.close()
