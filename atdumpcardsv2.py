@@ -157,7 +157,7 @@ def list_v2_cards(field_id, project_id, column_name, file_name=None):
 
         json_cards = json.loads(response.text)
         for card in json_cards["data"]["node"]["items"]["nodes"]:
-            correctColumn, title, number, sp = None, None, None, None
+            correctColumn, title, number, sp, status = None, None, None, None, None
             for fieldValue in card["fieldValues"]["nodes"]:
                 if fieldValue.get('field') != None and fieldValue['field']['id'] == field_id:
                     correctColumn = (fieldValue.get('name') != None and fieldValue['name'] == column_name or
@@ -166,7 +166,15 @@ def list_v2_cards(field_id, project_id, column_name, file_name=None):
                         break
                 if (fieldValue.get('field') != None and (fieldValue['field']['name'].lower() == "sp" or fieldValue['field']['name'].lower() == "sprint points")):
                     sp = fieldValue.get('number')
-                    sp = '' if sp == None else int(sp)
+                    sp = int(sp) if sp != None else None
+                if (fieldValue.get('field') != None and (fieldValue['field']['name'].lower() == "status")):
+                    status = fieldValue.get('name')
+            if(status == 'Closed'):
+                continue
+            elif(status == 'Active'):
+                status = ''
+            else:
+                status = f'[{status}] '
             if(correctColumn):
                 if card.get("content") == None:
                     title = "ERROR READING PRIVATE ISSUE"
@@ -176,9 +184,9 @@ def list_v2_cards(field_id, project_id, column_name, file_name=None):
                     title = re.sub('[^A-Za-z0-9.@ ]+', '', title)[:80]
                 number = card["content"].get("number")
                 if number == None:
-                    f.write(f'Draft,{title},,,{sp}\n')
+                    f.write(f'Draft,{status}{title},,,{sp}\n')
                 else:
-                    f.write(f'{number},{title},,,{sp}\n')
+                    f.write(f'{number},{status}{title},,,{sp}\n')
         getPage = json_cards["data"]["node"]["items"]["pageInfo"]["hasNextPage"]
         cursor = 'after:\\"' + \
             json_cards["data"]["node"]["items"]["pageInfo"]["endCursor"] + '\\"'
